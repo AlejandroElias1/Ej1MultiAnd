@@ -2,6 +2,8 @@ package com.example.ej1multi
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.PersistableBundle
+import android.widget.EditText
 
 class MainActivity : AppCompatActivity() {
     private var onCreate = 0
@@ -11,6 +13,10 @@ class MainActivity : AppCompatActivity() {
     private var onRestart = 4
     private var onStop = 5
     private var onDestroy = 6
+
+    private lateinit var mail:EditText
+    private lateinit var pass:EditText
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,5 +52,19 @@ class MainActivity : AppCompatActivity() {
         println("onDestroy $onDestroy")
     }
 
+    override fun onSaveInstanceState(savedInstanceState: Bundle) {
+        super.onSaveInstanceState(savedInstanceState)
+
+        savedInstanceState.putString("Mail", mail.text.toString())
+        savedInstanceState.putString("Pass", pass.text.toString())
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+
+        mail.setText(savedInstanceState.getString("Mail"))
+        pass.setText(savedInstanceState.getString("Pass"))
+
+    }
 
 }
